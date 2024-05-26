@@ -64,5 +64,25 @@ for text in legend.get_texts():
 plt.grid(True)
 plt.show()
 
+# Step 1: Identify the change point detected by the test
+change_point_index = data.index.get_loc(loc)
 
+# Step 2: Split the dataset into two parts based on the change point
+data_before_change = data.iloc[:change_point_index]
+data_after_change = data.iloc[change_point_index:].copy()  # Make a copy to avoid modifying the original data
+
+# Step 3: Apply some transformation to homogenize the data starting from the change point
+# Here, you can apply any transformation method you prefer to homogenize the data
+# For example, you can apply a simple mean adjustment to make the two segments continuous
+mean_adjustment = mu2 - mu1
+data_after_change -= mean_adjustment
+
+# Step 4: Adjust the data after the change point to ensure non-negative values
+data_after_change[data_after_change < 0] = 0
+
+# Step 5: Concatenate the original data before the change point with the adjusted data after the change point
+homogenized_data = pd.concat([data_before_change, data_after_change])
+
+# Step 6: Save the modified dataset to a CSV file
+homogenized_data.to_csv(r"C:\Users\user\Desktop\Data\Data Analysis\Homogenization\Logia_Hom6.csv")
 
