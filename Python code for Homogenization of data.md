@@ -63,7 +63,7 @@ for text in legend.get_texts():
 # Final plot adjustments and display
 plt.grid(True)
 plt.show()
-
+# Now to detect change points and treat the data we can use the following codes.
 # Step 1: Identify the change point detected by the test
 change_point_index = data.index.get_loc(loc)
 
